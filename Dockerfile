@@ -31,7 +31,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         qt5-qmake \
         qtbase5-dev-tools \
         qttranslations5-l10n \
-        qtbase5-dev \ 
+        qtbase5-dev && \ 
+    rm -rf /var/lib/apt/lists/*
 
 COPY requirements.txt .
 
