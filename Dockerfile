@@ -1,3 +1,4 @@
+#https://catalog.ngc.nvidia.com/orgs/nvidia/containers/l4t-base
 FROM nvcr.io/nvidia/l4t-base:r36.2.0
 
 #This should be parameterized based on the user of app 
