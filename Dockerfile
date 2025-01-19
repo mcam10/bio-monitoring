@@ -13,13 +13,14 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         python3-tk \
         pkg-config \
         python3-pip \
+        python3-dev \
         libhdf5-dev \
         hdf5-tools \
         libgtk2.0-dev \
         libglib2.0-dev \
         build-essential \
         libgtk-3-dev \
-        build-essential 
+        build-essential \
         libgtk-3-dev \
         mesa-utils \
         libgl1-mesa-glx \
@@ -31,15 +32,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         qt5-qmake \
         qtbase5-dev-tools \
         qttranslations5-l10n \
-        qtbase5-dev \ 
+        qtbase5-dev && \ 
+    rm -rf /var/lib/apt/lists/*
 
-COPY requirements.txt .
 
-#Because wxpython dont build on anything later
 RUN pip install setuptools==43.0.0
-
-#This has deeplabcutlive as well? Should we seperate per container"
-RUN pip install -r requirements.txt
-
-ENTRYPOINT ["python3","-m","deeplabcut"]
+RUN pip install deeplabcut-live
+ENTRYPOINT ["dlc-live-test"]
 
