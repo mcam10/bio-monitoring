@@ -39,5 +39,5 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 RUN pip install setuptools==43.0.0
 RUN pip install deeplabcut-live
-ENTRYPOINT ["dlc-live-test"]
+ENTRYPOINT ["dlc-live-test", "--nodisplay"]
 
