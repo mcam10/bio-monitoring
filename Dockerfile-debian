@@ -1,0 +1,57 @@
+FROM debian:bullseye-slim AS builder
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Install the required dependencies using apt
+RUN apt update -y && apt install -y --no-install-recommends \
+    python3-pip \
+    python3-dev \
+    libopencv-dev \
+    python3-tk \
+    pkg-config \
+    python3-pip \
+    libhdf5-dev \
+    zlib1g-dev \
+    zip \
+    libjpeg62-turbo-dev \
+    liblapack-dev \
+    libblas-dev \
+    libhdf5-serial-dev \
+    hdf5-tools \
+    libgtk2.0-dev \
+    libglib2.0-dev \
+    build-essential \
+    libgtk-3-dev \
+    mesa-utils \
+    libgl1-mesa-glx \
+    libxcb-cursor0 \
+    libxcb-cursor-dev \
+    qtbase5-dev \
+    qt5-gtk-platformtheme  \
+    qt5-qmake-bin qtchooser \
+    qt5-qmake \
+    qtbase5-dev-tools \
+    qttranslations5-l10n \
+    x11-xserver-utils \
+    libegl1-mesa \
+    libxrandr2 \
+    libxss1 \ 
+    libxcursor1 \
+    libxcomposite1 \
+    libasound2 \
+    libxi6 \
+    libxtst6 \
+    qtbase5-dev && \
+   rm -rf /var/lib/apt/lists/*
+
+RUN pip install setuptools==43.0.0
+
+COPY requirements.txt .
+
+RUN pip install -r requirements.txt
+
+# Set environment variables
+ENV DEBIAN_VERSION=11.4
+ARG ARCH=$1    # Architecture to build for (e.g., armv7l, x86_64)
+
+CMD ["dlc-live-test", "--nodisplay"]
